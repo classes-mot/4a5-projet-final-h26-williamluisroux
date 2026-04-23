@@ -10,6 +10,12 @@ const userSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Forum'
         }
+    ],
+    messages: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Message'
+        }
     ]
 });
 

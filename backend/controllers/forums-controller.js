@@ -19,7 +19,7 @@ const getForums = async (req, res, next) => {
     res.json({ forums: forums.map(forums => forums.toObject({ getters: true })) });
 };
 
-export const createForum = async (req, res, next) => {
+const createForum = async (req, res, next) => {
     const validationErrors = validationResult(req);
     if (!validationErrors.isEmpty()) {
         return next(
