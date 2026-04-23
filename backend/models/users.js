@@ -6,10 +6,10 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true, minlength: 6 },
     forums: [
         {
-            type: String,
-            required: true
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Forum'
         }
-    ],
+    ]
 });
 
 const User = mongoose.model('User', userSchema);

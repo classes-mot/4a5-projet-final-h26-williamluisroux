@@ -2,8 +2,8 @@ import mongoose from 'mongoose';
 
 const messagesSchema = new mongoose.Schema({
     contenu: { type: String, required: true },
-    auteurId: { type: String, immutable: true },
-    forumId: { type: String, immutable: true },
+    auteurId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', immutable: true },
+    forumId: { type: mongoose.Schema.Types.ObjectId, ref: 'Forum', immutable: true },
     dateEnvoi: { type: Date, default: Date.now, immutable: true },
 });
 
