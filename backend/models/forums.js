@@ -6,5 +6,6 @@ const forumsSchema = new mongoose.Schema({
     createurId: { type: String, immutable: true },
     dateCreation: { type: Date, default: Date.now, immutable: true },
 });
+
 const Forum = mongoose.model('Forum', forumsSchema);
 export default Forum;
