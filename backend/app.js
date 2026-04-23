@@ -1,4 +1,5 @@
 import express from 'express';
+import path from 'path';
 import usersRoutes from './routes/users-routes.js';
 import forumRoutes from './routes/forums-routes.js';
 import messagesRoutes from './routes/messages-routes.js'
@@ -12,6 +13,8 @@ const app = express();
 
 // Parse le code entrant pour ajouter une propriété body sur la request
 app.use(express.json());
+
+app.use('/uploads/images', express.static(path.join('uploads', 'images')));
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
