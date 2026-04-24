@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/users.js';
 import HttpError from '../util/http-error.js';
-import { use } from 'react';
+import { error } from 'node:console';
 
 const registerUser = async (req, res, next) => {
     console.log('registering');
@@ -23,6 +23,8 @@ const registerUser = async (req, res, next) => {
             'Un utilisateur avec cette adresse e-mail existe déjà.',
             422
         )
+
+        return next(error);
     }
     const createdUser = new User({
         name,
@@ -91,7 +93,7 @@ const login = async (req, res, next) => {
 
 // Seulement pour le user profile, ne peut pas accéder aux profiles d'autres utilisateurs
 const getUserById = async (req, res, next) => {
-    const userId = req.params.pid;
+    const userId = req.params.uid;
 
     let user;
 
@@ -137,10 +139,12 @@ const updateUserNameById = async (req, res, next) => {
 
         res.status(200).json({ user: user.toObject({ getters: true }) });
     } catch (err) {
-        return next(new HttpError(
+        const error = new HttpError(
             'Une erreur BD est survenue.',
-            500)
+            500
         );
+
+        return next(error);
     }
 
     res.status(200).json({ user: user.toObject({ getters: true }) });
@@ -150,9 +154,12 @@ const updateUserPictureById = async (req, res, next) => {
     const userId = req.params.uid;
 
     if (!req.file) {
-        return next(new HttpError(
+        const error = new HttpError(
             'Aucun fichier image fourni.',
-            422));
+            422
+        );
+
+        return next(error);
     }
 
     let user;
@@ -163,11 +170,20 @@ const updateUserPictureById = async (req, res, next) => {
             { new: true }
         );
     } catch (err) {
-        return next(new HttpError('Erreur lors de la mise à jour de l\'image.', 500));
+        const error = new HttpError(
+            "Erreur lors de la mise à jour de l'image.",
+            500
+        );
+
+        return next(error);
     }
 
     if (!user) {
-        return next(new HttpError('Utilisateur non trouvé.', 404));
+        const error = new HttpError(
+            'Utilisateur non trouvé.',
+            404);
+
+        return next(error);
     }
 
     res.status(200).json({ user: user.toObject({ getters: true }) });
