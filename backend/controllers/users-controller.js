@@ -1,11 +1,10 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/users.js';
 import HttpError from '../util/http-error.js';
-import { error } from 'node:console';
 
 const registerUser = async (req, res, next) => {
     console.log('registering');
-    const { name, email, password, jeux } = req.body;
+    const { name, email, password, forums } = req.body;
     let existingUser;
     try {
         existingUser = await User.findOne({ email: email })
@@ -30,7 +29,9 @@ const registerUser = async (req, res, next) => {
         name,
         email,
         password,
-        jeux,
+        profilePicture: 'default-profile.png',
+        forums: forums || [],
+        messages: []
     });
     console.log('createdUser', createdUser);
     try {
@@ -123,8 +124,9 @@ const updateUserNameById = async (req, res, next) => {
     const { name } = req.body;
     const userId = req.params.uid;
 
+    let user;
     try {
-        const user = await User.findByIdAndUpdate(
+        user = await User.findByIdAndUpdate(
             userId,
             { name },
             { new: true, runValidators: true }
@@ -136,8 +138,6 @@ const updateUserNameById = async (req, res, next) => {
                 404)
             );
         }
-
-        res.status(200).json({ user: user.toObject({ getters: true }) });
     } catch (err) {
         const error = new HttpError(
             'Une erreur BD est survenue.',
