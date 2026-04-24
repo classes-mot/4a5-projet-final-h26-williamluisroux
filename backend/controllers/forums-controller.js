@@ -30,12 +30,14 @@ const createForum = async (req, res, next) => {
         );
     }
 
-    const { titre, description, createurId } = req.body;
+    const { titre, description } = req.body;
+    const createurId = req.userData.userId;
 
     const createdForum = new Forum({
         titre,
         description,
-        createurId
+        createurId,
+        messages: []
     });
 
     try {
@@ -75,6 +77,15 @@ const deleteForum = async (req, res, next) => {
             'Forum non trouvé.',
             404
         );
+        return next(error);
+    }
+
+    if (forum.createurId.toString() !== req.userData.userId) {
+        const error = new HttpError(
+            'Interdit : Vous n\'êtes pas le créateur.',
+            403
+        );
+
         return next(error);
     }
 
