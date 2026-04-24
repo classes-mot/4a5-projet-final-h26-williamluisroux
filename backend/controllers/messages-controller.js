@@ -31,7 +31,14 @@ const createMessage = async (req, res, next) => {
         );
     }
 
-    const { contenu, auteurId, forumId } = req.body;
+    const { contenu } = req.body;
+    const auteurId = req.userData.userId;
+    const forumId = req.params.fid;
+
+    const forum = await Forum.findById(forumId);
+    if (!forum) {
+        return next(new HttpError("Le forum spécifié n'existe pas.", 404));
+    }
 
     const createdMessage = new Message({
         contenu,
@@ -82,6 +89,10 @@ const deleteMessage = async (req, res, next) => {
         return next(error);
     }
 
+    if (message.auteurId.toString() !== req.userData.userId) {
+        return next(new HttpError("Vous ne pouvez pas supprimer le message de quelqu'un d'autre.", 403));
+    }
+
     try {
         await message.deleteOne();
         await User.updateOne(
@@ -100,7 +111,7 @@ const deleteMessage = async (req, res, next) => {
         return next(error);
     }
 
-    res.status(200).json({ message: 'Messages supprimé.' });
+    res.status(200).json({ message: 'Message supprimé.' });
 };
 
 export default {
