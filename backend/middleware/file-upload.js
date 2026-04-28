@@ -1,5 +1,5 @@
 import multer from 'multer';
-import { v4 as uuidv4 } from 'uuid'; // npm install uuid
+import { v4 as uuidv4 } from 'uuid';
 
 const MIME_TYPE_MAP = {
     'image/png': 'png',

@@ -1,4 +1,4 @@
-import { defaultMaxListeners } from "node:events";
+import HttpError from "../util/http-error.js";
 
 // middleware/check-owner.js
 const checkOwner = (req, res, next) => {

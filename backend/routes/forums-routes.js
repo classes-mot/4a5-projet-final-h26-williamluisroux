@@ -6,10 +6,11 @@ import checkAuth from '../middleware/check-auth.js';
 const router = express.Router();
 
 router.get('/', forumsController.getForums);
+router.get('/:fid', forumsController.getForumById)
 
 router.use(checkAuth);
 
-router.post('/', forumsController.createForum);
+router.post('/', check('titre').not().isEmpty(), forumsController.createForum);
 
 router.delete('/:fid', forumsController.deleteForum);
 

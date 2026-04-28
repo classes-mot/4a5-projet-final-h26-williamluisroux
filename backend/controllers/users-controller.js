@@ -19,7 +19,7 @@ const registerUser = async (req, res, next) => {
     console.log('existingUser', existingUser);
     if (existingUser) {
         const error = new HttpError(
-            'Un utilisateur avec cette adresse e-mail existe déjà.',
+            'Un utilisateur avec cette adresse err-mail existe déjà.',
             422
         )
 
@@ -100,24 +100,24 @@ const getUserById = async (req, res, next) => {
 
     try {
         user = await User.findById(userId).select('-password');
-    } catch (e) {
-        console.log(e);
-        const err = new HttpError(
+    } catch (err) {
+        console.log(err);
+        const error = new HttpError(
             'Une erreur BD est survenue',
             500
         );
-        return next(err)
+        return next(error)
     }
 
     if (!user) {
-        const err = new HttpError(
+        const error = new HttpError(
             'Utilisateur non disponible',
             404
         );
-        return next(err);
+        return next(error);
     }
 
-    res.json({ user: user.toObject({ getters: true }) })
+    res.status(200).json({ user: user.toObject({ getters: true }) })
 };
 
 const updateUserNameById = async (req, res, next) => {

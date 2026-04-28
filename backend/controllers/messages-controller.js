@@ -36,8 +36,13 @@ const createMessage = async (req, res, next) => {
     const forumId = req.params.fid;
 
     const forum = await Forum.findById(forumId);
+
     if (!forum) {
-        return next(new HttpError("Le forum spécifié n'existe pas.", 404));
+        const error = new HttpError(
+            'Forum non trouvé.',
+            404
+        );
+        return next(error);
     }
 
     const createdMessage = new Message({

@@ -19,6 +19,36 @@ const getForums = async (req, res, next) => {
     res.json({ forums: forums.map(forums => forums.toObject({ getters: true })) });
 };
 
+const getForumById = async (req, res, next) => {
+    const forumId = req.params.fid;
+    let forum;
+    try {
+        forum = await Forum.findById(forumId);
+    } catch (err) {
+        if (err.name === 'CastError') {
+            const error = new HttpError(
+                'Forum non trouvé.',
+                404
+            );
+            return next(error);
+        }
+        const error = new HttpError(
+            'Une erreur BD est survenue, veuillez réessayer plus tard.',
+            500
+        );
+        return next(error);
+    }
+
+    if (!forum) {
+        const error = new HttpError(
+            'Forum non trouvé.',
+            404
+        );
+        return next(error);
+    }
+    res.status(200).json({ forum: forum.toObject({ getters: true }) });
+}
+
 const createForum = async (req, res, next) => {
     const validationErrors = validationResult(req);
     if (!validationErrors.isEmpty()) {
@@ -109,6 +139,7 @@ const deleteForum = async (req, res, next) => {
 
 export default {
     getForums,
+    getForumById,
     createForum,
     deleteForum,
 };
