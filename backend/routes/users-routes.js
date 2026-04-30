@@ -3,7 +3,6 @@ import usersController from '../controllers/users-controller.js';
 import { check } from 'express-validator';
 import checkAuth from '../middleware/check-auth.js';
 import checkOwner from '../middleware/check-owner.js';
-import fileUpload from '../middleware/file-upload.js';
 
 const router = express.Router();
 
@@ -19,6 +18,6 @@ router.get('/profile/:uid', checkOwner, usersController.getUserById);
 
 router.patch('/profile/:uid', checkOwner, check('name').not().isEmpty(), usersController.updateUserNameById);
 
-router.patch('/profile/:uid/image', checkOwner, fileUpload.single('image'), usersController.updateUserPictureById);
+router.patch('/profile/:uid/image', checkOwner, usersController.updateUserPictureById);
 
 export default router;

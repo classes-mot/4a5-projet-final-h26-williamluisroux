@@ -4,7 +4,8 @@ import HttpError from '../util/http-error.js';
 
 const registerUser = async (req, res, next) => {
     console.log('registering');
-    const { name, email, password, forums } = req.body;
+    const { name, email, password, profilePicture, forums } = req.body;
+
     let existingUser;
     try {
         existingUser = await User.findOne({ email: email })
@@ -25,15 +26,17 @@ const registerUser = async (req, res, next) => {
 
         return next(error);
     }
+
     const createdUser = new User({
         name,
         email,
         password,
-        profilePicture: 'default-profile.png',
+        profilePicture: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
         forums: forums || [],
         messages: []
     });
     console.log('createdUser', createdUser);
+
     try {
         await createdUser.save();
     } catch (err) {
@@ -152,13 +155,13 @@ const updateUserNameById = async (req, res, next) => {
 
 const updateUserPictureById = async (req, res, next) => {
     const userId = req.params.uid;
+    const { imagePath } = req.body;
 
-    if (!req.file) {
+    if (!imagePath) {
         const error = new HttpError(
-            'Aucun fichier image fourni.',
+            'Aucune URL fournie.',
             422
         );
-
         return next(error);
     }
 
@@ -166,7 +169,7 @@ const updateUserPictureById = async (req, res, next) => {
     try {
         user = await User.findByIdAndUpdate(
             userId,
-            { profilePicture: req.file.path },
+            { profilePicture: imagePath },
             { new: true }
         );
     } catch (err) {
