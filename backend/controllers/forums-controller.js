@@ -23,7 +23,13 @@ const getForumById = async (req, res, next) => {
     const forumId = req.params.fid;
     let forum;
     try {
-        forum = await Forum.findById(forumId);
+        forum = await Forum.findById(forumId).populate({
+            path: 'messages',
+            populate: {
+                path: 'auteurId',
+                model: 'User'
+            }
+        });
     } catch (err) {
         if (err.name === 'CastError') {
             const error = new HttpError(

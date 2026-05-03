@@ -9,7 +9,7 @@ const getMessagesByForumId = async (req, res, next) => {
     const fid = req.params.fid;
     let messages;
     try {
-        messages = await Message.find({ forumId: fid });
+        messages = await Message.find({ forumId: fid }).populate('auteurId');
     } catch (err) {
         const error = new HttpError(
             'Une erreur BD est survenue, veuillez réessayer plus tard.',

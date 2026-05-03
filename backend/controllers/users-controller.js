@@ -92,6 +92,7 @@ const login = async (req, res, next) => {
         userId: existingUser.id,
         email: existingUser.email,
         token,
+        profilePicture: existingUser.profilePicture
     });
 };
 
@@ -155,9 +156,9 @@ const updateUserNameById = async (req, res, next) => {
 
 const updateUserPictureById = async (req, res, next) => {
     const userId = req.params.uid;
-    const { imagePath } = req.body;
+    const { imageURL } = req.body;
 
-    if (!imagePath) {
+    if (!imageURL) {
         const error = new HttpError(
             'Aucune URL fournie.',
             422
@@ -169,7 +170,7 @@ const updateUserPictureById = async (req, res, next) => {
     try {
         user = await User.findByIdAndUpdate(
             userId,
-            { profilePicture: imagePath },
+            { profilePicture: imageURL },
             { new: true }
         );
     } catch (err) {

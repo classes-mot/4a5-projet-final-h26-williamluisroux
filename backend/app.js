@@ -22,7 +22,10 @@ app.use((req, res, next) => {
         'Access-Control-Allow-Headers',
         'Origin, X-Requested-With, Content-Type, Accept, Authorization'
     ); //quel header sont autorisés ( pourait etre * pour tout)
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE'); // quelles methodes HTTP sont autorisées
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE', 'OPTIONS'); // quelles methodes HTTP sont autorisées
+    if (req.method === 'OPTIONS') {
+        return res.sendStatus(200);
+    }
     next();
 });
 

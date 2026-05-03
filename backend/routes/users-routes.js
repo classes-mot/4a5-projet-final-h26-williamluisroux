@@ -16,7 +16,7 @@ router.use(checkAuth);
 // checkOwner utilise le :uid, donc il a besoin d'être appelé dans la route contrairement a checkAuth
 router.get('/profile/:uid', checkOwner, usersController.getUserById);
 
-router.patch('/profile/:uid', checkOwner, check('name').not().isEmpty(), usersController.updateUserNameById);
+router.patch('/profile/:uid/name', checkOwner, check('name').not().isEmpty(), usersController.updateUserNameById);
 
 router.patch('/profile/:uid/image', checkOwner, usersController.updateUserPictureById);
 
