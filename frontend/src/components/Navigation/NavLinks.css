@@ -1,0 +1,58 @@
+.nav-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Style commun à tout les boutons */
+.nav-links a, 
+.nav-links button {
+  background-color: var(--secondary-light);
+  color: var(--primary-soft);
+  border: 1px solid var(--secondary-dark);
+  border-radius: 4px;
+  padding: 0.6rem 1.2rem;
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.85rem;
+  letter-spacing: 1px;  
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);  
+  display: inline-block;
+}
+
+.nav-links a:hover, 
+.nav-links button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px var(--secondary-shadow);
+  color: var(--primary-deep);
+}
+
+/* Boutons standards et liens */
+.nav-links a:hover,
+.nav-links button:not(.btn-logout):hover {
+  background-color: var(--secondary-light);
+  border-color: var(--secondary-light);
+}
+
+.nav-links .btn-logout:hover {
+  background-color: red;
+  border-color: var(--error-red);
+}
+
+.nav-links a:active,
+.nav-links button:active {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px var(--secondary-shadow);
+}
+
+.nav-links a.active {
+  box-shadow: 0 2px 4px var(--text-primary);
+  background-color: var(--secondary-main);
+  border-color: var(--text-primary);
+}
