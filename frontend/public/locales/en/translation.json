@@ -1,0 +1,75 @@
+{
+    "navigation" : {
+        "theme-or":"GOLD",
+        "theme-noir":"BLACK",
+        "bouton-accueil":"HOME",
+        "bouton-deconnexion":"LOGOUT",
+        "bouton-login":"LOGIN",
+        "bouton-register":"REGISTER"
+    },
+
+    "accueil" : {
+        "bouton-nouveau-forum":"+ NEW FORUM",
+        "option-plus-recent":"Most recent",
+        "option-plus-anciens":"Most old",
+        "option-plus-populaires":"Most popular",
+        "option-mes-forums":"My Forums",
+        "bouton-supprimer-forum":"DELETE",
+        "chargement-forums":"Chargement des forums..."
+    },
+
+    "forum" : {
+        "chargement" : "LOADING..."
+    },
+
+    "nouveau-forum" : {
+        "creation-forum":"CREATE A NEW FORUM",
+        "label-titre":"Title",
+        "label-description":"Description",
+        "bouton-publier-forum":"PUBLISH FORUM",
+        "publier-forum-loading" : "CREATING..."
+    },
+
+    "profile" : {
+        "email" : "E-mail",
+        "label-modifier-nom":"Username",
+        "bouton-modifier-nom":"UPDATE NAME",
+        "label-modifier-photo":"Profile picture link",
+        "placeholder-image" : "Paste the image's URL here (e.g.: https://...)",
+        "bouton-modifier-photo":"UPDATE PROFILE PICTURE",
+        "chargement" : "CHARGEMENT..."
+    },
+
+    "message" : {
+        "placeholder":"Your message...",
+        "bouton-envoyer-message":"SEND",
+        "aucun-message":"No messages for now..."
+    },
+
+    "connexion" : {
+        "titre-connexion" : "LOGIN",
+        "label-email" : "E-mail",
+        "label-password" : "Password",
+        "bouton-confirmer" : "CONFIRM",
+        "bouton-confirmer-loading" : "CHECKING..."
+    },
+
+    "inscription" : {
+        "titre-inscription" : "REGISTER",
+        "label-nom" : "Username",
+        "label-password-confirme" : "Confirm password"
+    },
+
+    "messages-erreur": {
+        "mdp-match": "Passwords must match",
+        "aucun-forum" : "No forum found.",
+        "pas-connecte" : "Login to participate in the discussion.",
+        "erreur404-titre" : "404 - Page not found",
+        "erreur404-phrase" : "This page could not be accessed or it does not exist"
+    },
+
+    "confirmation" : {
+        "suppression-forum" : "Are you sure you want to delete this forum?",
+        "suppression-message" : "Are you sure you want to delete this message?"
+    }
+}

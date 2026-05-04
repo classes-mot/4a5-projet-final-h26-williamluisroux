@@ -1,0 +1,75 @@
+{
+    "navigation" : {   
+        "theme-or" : "OR",
+        "theme-noir" : "NOIR",
+        "bouton-accueil" : "ACCUEIL",
+        "bouton-deconnexion" : "DÉCONNEXION",
+        "bouton-login" : "CONNEXION",
+        "bouton-register" : "S'INSCRIRE"
+    },
+
+    "accueil" : {
+        "bouton-nouveau-forum" : "+ NOUVEAU FORUM",
+        "option-plus-recent" : "Plus récents",
+        "option-plus-anciens" : "Plus anciens",
+        "option-plus-populaires" : "Plus populaires",
+        "option-mes-forums" : "Mes Forums",
+        "bouton-supprimer-forum":"SUPPRIMER",
+        "chargement-forums":"Chargement des forums..."
+    },
+
+    "forum" : {
+        "chargement" : "CHARGEMENT..."
+    },
+
+    "nouveau-forum" : {
+        "creation-forum" : "CRÉER UN NOUVEAU FORUM",
+        "label-titre" : "Titre",
+        "label-description" : "Description",
+        "bouton-publier-forum" : "PUBLIER LE FORUM",
+        "publier-forum-loading" : "CRÉATION..."
+    },
+
+    "profile" : {
+        "email" : "Adresse courriel",
+        "label-modifier-nom" : "Nom d'utilisateur",
+        "bouton-modifier-nom" : "ENREGISTRER LE NOM",
+        "label-modifier-photo" : "Lien de l'image de profil",
+        "placeholder-image" : "Collez l'URL de l'image ici (ex: https://...)",
+        "bouton-modifier-photo" : "METTRE À JOUR L'IMAGE",
+        "chargement" : "CHARGEMENT..."
+    },
+
+    "message" : {
+        "placeholder":"Votre message...",
+        "bouton-envoyer-message":"ENVOYER",
+        "aucun-message":"Aucun message pour le moment..."
+    },
+
+    "connexion" : {
+        "titre-connexion" : "CONNEXION",
+        "label-email" : "Adresse courriel",
+        "label-password" : "Mot de passe",
+        "bouton-confirmer" : "CONFIRMER",
+        "bouton-confirmer-loading" : "TRAITEMENT..."
+    },
+
+    "inscription" : {
+        "titre-inscription" : "INSCRIPTION",
+        "label-nom" : "Nom",
+        "label-password-confirme" : "Confirmer le mot de passe"
+    },
+
+    "messages-erreur": {
+        "mdp-match": "Les mots de passe ne correspondent pas.",
+        "aucun-forum" : "Aucun forum trouvé.",
+        "pas-connecte" : "Connectez-vous pour participer à la discussion.",
+        "erreur404-titre" : "404 - Page non trouvée",
+        "erreur404-phrase" : "Cette page n'a pas pu être accédée ou elle n'existe pas"
+    },
+
+    "confirmation" : {
+        "suppression-forum" : "Voulez-vous vraiment supprimer ce forum?",
+        "suppression-message" : "Voulez-vous vraiment supprimer ce message?"
+    }
+}
