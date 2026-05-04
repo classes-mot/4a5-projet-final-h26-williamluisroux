@@ -1,0 +1,28 @@
+.profile-pic {
+  border-radius: 50%;
+  border: 2px solid var(--secondary-dark);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+  display: block;
+  margin: 10px;
+}
+
+.profile-pic-link:hover .profile-pic {
+  transform: scale(1.1);
+  border-color: var(--secondary-light);
+}
+
+/* Tailles prédéfinies */
+.profile-pic.small {
+  width: 35px;
+  height: 35px;
+}
+
+.profile-pic.medium {
+  width: 50px;
+  height: 50px;
+}
+
+.profile-pic.large {
+  width: 150px;
+  height: 150px;
+}
