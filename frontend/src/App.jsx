@@ -1,122 +1,92 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { useState, useCallback } from 'react';
+import { AuthContext } from './context/auth-context';
+import { ThemeProvider } from './context/ThemeProvider.jsx';
 
-function App() {
-  const [count, setCount] = useState(0)
+// Import des composants de structure et pages
+import RootLayout from './Containers/Roots';
+import HomePage from './pages/HomePage';
+import ForumPage from './pages/ForumPage';
+import ErrorPage from './pages/ErrorPage';
+import CreerForumPage from './pages/CreerForumPage';
+import ProfilePage from './pages/ProfilePage';
+
+const routerLoggedIn = createBrowserRouter([
+  {
+    path: '/',
+    element: <RootLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+      { path: "/", element: <HomePage /> },
+      { path: "forums/:forumId", element: <ForumPage /> },
+      { path: "/forums/create-forum", element: <CreerForumPage />},
+      { path: "/users/profile/:userId", element: <ProfilePage />}
+    ]
+  }
+]);
+
+const routerNotLoggedIn = createBrowserRouter([
+  {
+    path: '/',
+    element: <RootLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+      { path: "/", element: <HomePage /> },
+      { path: "forums/:forumId", element: <ForumPage /> },
+      { path: "/forums/create-forum", element: <CreerForumPage />}
+    ]
+  }
+]);
+
+export default function App() {
+  const [token, setToken] = useState(() => {
+    const storedData = JSON.parse(localStorage.getItem('userData'));
+    return storedData?.token || null;
+  });
+
+  const [userId, setUserId] = useState(() => {
+    const storedData = JSON.parse(localStorage.getItem('userData'));
+    return storedData?.userId || null;
+  });
+
+  const [userImage, setUserImage] = useState(() => {
+    const storedData = JSON.parse(localStorage.getItem('userData'));
+    return storedData?.userImage || null;
+  });
+
+  const loginHandler = useCallback((uid, token, image) => {
+    setToken(token);
+    setUserId(uid);
+    setUserImage(image);
+    localStorage.setItem(
+      'userData',
+      JSON.stringify({ userId: uid, token: token, userImage: image })
+    );
+  }, []);
+
+  const logoutHandler = useCallback(() => {
+    if (window.confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
+      setToken(null);
+      setUserId(null);
+      setUserImage(null);
+      localStorage.removeItem('userData');
+    }
+  }, []);
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+    <ThemeProvider>
+      <AuthContext.Provider
+        value={{
+          isLoggedIn: !!token,
+          token: token,
+          userId: userId,
+          userImage: userImage,
+          login: loginHandler,
+          logout: logoutHandler  
+        }}
+      >
+        <RouterProvider router={token ? routerLoggedIn : routerNotLoggedIn} />
+      </AuthContext.Provider>
+    </ThemeProvider>
+  );
 }
-
-export default App
