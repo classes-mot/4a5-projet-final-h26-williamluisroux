@@ -1,0 +1,17 @@
+.error-container {
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.error-container h1 {
+  color: var(--secondary-main);
+  font-size: 4rem;
+}
+
+.error-container p {
+  color: var(--text-secondary);
+}
