@@ -1,0 +1,31 @@
+
+.forum-form {
+    background: var(--primary-card);
+    padding: 2rem;
+    width: 75%;
+    max-width: 500px;
+    border: 1px solid var(--secondary-main);
+    border-radius: 8px;
+}
+
+.form-control {
+    margin-bottom: 1.5rem;
+}
+
+.form-control label {
+    display: block;
+    color: var(--secondary-main);
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.form-control input, 
+.form-control textarea {
+    width: 95%;
+    background: var(--secondary-light);
+    border: 1px solid #333;
+    color: var(--text-inverse);
+    padding: 0.8rem;
+    border-radius: 4px;
+    resize: none;
+}
