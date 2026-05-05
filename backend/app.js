@@ -6,10 +6,14 @@ import messagesRoutes from './routes/messages-routes.js'
 import errorHandler from './handler/error-handler.js';
 import { connectDB } from './util/bd.js';
 
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/WilliamLuisRoux_BD_ProjetSynthese_Forums"
 // Connexion à MongoDB
-await connectDB();
+await connectDB(MONGODB_URI);
 
 const app = express();
+
+const PORT = process.env.PORT || 5000;
+
 
 // Parse le code entrant pour ajouter une propriété body sur la request
 app.use(express.json());
@@ -44,7 +48,7 @@ app.use((req, res, next) => {
 
 app.use(errorHandler);
 
-app.listen(5000, () => {
-    console.log('serveur écoute au', `http://localhost:5000`);
+app.listen(PORT, () => {
+    console.log('serveur écoute au', `http://localhost:` + PORT);
 });
 

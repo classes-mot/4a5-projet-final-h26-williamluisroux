@@ -24,7 +24,7 @@ export default function AuthForm({ isLoginMode, onClose }) {
 
     try {
       const responseData = await sendRequest(
-        `http://localhost:5000/api/users/${isLoginMode ? 'login' : 'register'}`,
+        import.meta.env.VITE_BACKEND_URL + `users/${isLoginMode ? 'login' : 'register'}`,
         'POST',
         JSON.stringify(data)
       );

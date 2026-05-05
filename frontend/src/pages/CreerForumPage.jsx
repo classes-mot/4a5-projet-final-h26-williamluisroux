@@ -19,7 +19,7 @@ const CreerForumPage = () => {
     event.preventDefault();
     try {
       await sendRequest(
-        'http://localhost:5000/api/forums',
+        import.meta.env.VITE_BACKEND_URL,
         'POST',
         JSON.stringify({
           titre: title,

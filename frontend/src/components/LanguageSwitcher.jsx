@@ -8,10 +8,10 @@ export default function LanguageSwitcher() {
     return (
         <div>
             <button onClick={() => changeLanguage('fr')}>
-                Français
+                Fr
             </button>
             <button onClick={() => changeLanguage('en')}>
-                English
+                En
             </button>
         </div>
     );

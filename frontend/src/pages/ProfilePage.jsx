@@ -20,7 +20,7 @@ const ProfilePage = () => {
     const fetchUser = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/users/profile/${userId}`,
+          import.meta.env.VITE_BACKEND_URL + `users/profile/${userId}`,
           'GET',
           null,
           { 
@@ -41,7 +41,7 @@ const ProfilePage = () => {
     event.preventDefault();
     try {
       const responseData = await sendRequest(
-        `http://localhost:5000/api/users/profile/${userId}/name`,
+        import.meta.env.VITE_BACKEND_URL + `users/profile/${userId}/name`,
         'PATCH',
         JSON.stringify({ name: newName }),
         {
@@ -60,7 +60,7 @@ const ProfilePage = () => {
     event.preventDefault();
     try {
       const responseData = await sendRequest(
-        `http://localhost:5000/api/users/profile/${userId}/image`,
+        import.meta.env.VITE_BACKEND_URL + `users/profile/${userId}/image`,
         'PATCH',
         JSON.stringify({ imageURL: newImageUrl }),
         {

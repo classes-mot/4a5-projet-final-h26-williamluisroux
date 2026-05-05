@@ -18,7 +18,7 @@ const ForumPage = () => {
 
     const fetchForum = useCallback(async () => {
         try {
-            const responseData = await sendRequest(`http://localhost:5000/api/forums/${forumId}`);
+            const responseData = await sendRequest(import.meta.env.VITE_BACKEND_URL + `forums/${forumId}`);
             setLoadedForum(responseData.forum);
         } catch (err) {
             console.log(err);
@@ -38,7 +38,7 @@ const ForumPage = () => {
         
         try {
             await sendRequest(
-                `http://localhost:5000/api/messages/${forumId}`, 
+                import.meta.env.VITE_BACKEND_URL + `messages/${forumId}`, 
                 'POST',
                 JSON.stringify({
                     contenu: cleanedText,
@@ -62,7 +62,7 @@ const ForumPage = () => {
         if (!window.confirm(t("confirmation.suppression-message"))) return;
         try {
             await sendRequest(
-                `http://localhost:5000/api/messages/${messageId}`,
+                import.meta.env.VITE_BACKEND_URL + `messages/${messageId}`,
                 'DELETE',
                 null,
                 { Authorization: 'Bearer ' + auth.token }

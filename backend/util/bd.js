@@ -4,9 +4,9 @@ let isConnected = false;
 
 export const connectDB = async () => {
     if (isConnected) return;
-    let uri = 'mongodb://localhost:27017/WilliamLuisRoux_BD_ProjetSynthese_Forums';
+    const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/WilliamLuisRoux_BD_ProjetSynthese_Forums"
     try {
-        await mongoose.connect(uri);
+        await mongoose.connect(MONGODB_URI);
         isConnected = true;
         console.log('Connexion MongoDB réussie');
     } catch (err) {

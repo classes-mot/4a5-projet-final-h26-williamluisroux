@@ -16,7 +16,7 @@ export default function HomePage() {
   useEffect(() => {
     const fetchForums = async () => {
       try {
-        const data = await sendRequest('http://localhost:5000/api/forums');
+        const data = await sendRequest(import.meta.env.VITE_BACKEND_URL + 'forums');
         setForums(data.forums);
       } catch (err) {
         console.log(err);
@@ -31,7 +31,7 @@ export default function HomePage() {
 
     try {
       await sendRequest(
-        `http://localhost:5000/api/forums/${forumId}`,
+        import.meta.env.VITE_BACKEND_URL + `forums/${forumId}`,
         'DELETE',
         null,
         { Authorization: 'Bearer ' + auth.token }
