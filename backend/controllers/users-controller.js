@@ -76,9 +76,9 @@ const login = async (req, res, next) => {
     let token;
     try {
         token = jwt.sign(
-            { userId: existingUser.id, email: existingUser.email },
+            { userId: existingUser.id, email: existingUser.email, role: existingUser.role },
             'cleSuperSecrete!',
-            { expiresIn: '1h' }
+            { expiresIn: '12h' }
         );
     } catch (err) {
         const error = new HttpError(
@@ -92,7 +92,8 @@ const login = async (req, res, next) => {
         userId: existingUser.id,
         email: existingUser.email,
         token,
-        profilePicture: existingUser.profilePicture
+        profilePicture: existingUser.profilePicture,
+        role: existingUser.role
     });
 };
 

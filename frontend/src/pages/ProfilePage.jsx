@@ -88,7 +88,8 @@ const ProfilePage = () => {
           <div className="profile-header">
             <ProfilePicture imageURL={loadedUser.profilePicture} size="large" />
             <h1>{loadedUser.name}</h1>
-            <p className="email-text">{t("profile.email")} : {loadedUser.email}</p>
+            <p className="basic-text">{t("profile.email")} : {loadedUser.email}</p>
+            <p className="basic-text">{t("profile.role")} : {loadedUser.role}</p>
           </div>
 
           {isOwnProfile && (

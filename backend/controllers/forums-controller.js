@@ -116,9 +116,12 @@ const deleteForum = async (req, res, next) => {
         return next(error);
     }
 
-    if (forum.createurId.toString() !== req.userData.userId) {
+    const isCreateur = forum.createurId.toString() === req.userData.userId;
+    const isAdmin = req.userData.role === 'admin';
+
+    if (!isCreateur && !isAdmin) {
         const error = new HttpError(
-            'Interdit : Vous n\'êtes pas le créateur.',
+            'Interdit : Vous n\'êtes pas le créateur ou un admin.',
             403
         );
 

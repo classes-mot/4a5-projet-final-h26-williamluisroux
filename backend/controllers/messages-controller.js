@@ -94,8 +94,16 @@ const deleteMessage = async (req, res, next) => {
         return next(error);
     }
 
-    if (message.auteurId.toString() !== req.userData.userId) {
-        return next(new HttpError("Vous ne pouvez pas supprimer le message de quelqu'un d'autre.", 403));
+    const isAuteur = message.auteurId.toString() === req.userData.userId;
+    const isAdmin = req.userData.role === 'admin';
+
+    if (!isAuteur && !isAdmin) {
+        const error = HttpError(
+            "Droits insuffisants pour supprimer ce message",
+            403
+        );
+
+        return next(error);
     }
 
     try {

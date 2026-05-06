@@ -87,6 +87,7 @@ const ForumPage = () => {
             <MessageList 
                 messages={loadedForum?.messages}
                 currentUserId={auth.userId}
+                currentUserRole={auth.role}
                 onDelete={deleteMessageHandler}
                 messagesEndRef={messagesEndRef}
             />

@@ -54,13 +54,23 @@ export default function App() {
     return storedData?.userImage || null;
   });
 
-  const loginHandler = useCallback((uid, token, image) => {
+  const [role, setRole] = useState(() => {
+    const storedData = JSON.parse(localStorage.getItem('userData'));
+    return storedData?.role || null;
+  });
+
+  const loginHandler = useCallback((uid, token, role, image) => {
     setToken(token);
     setUserId(uid);
+    setRole(role);
     setUserImage(image);
     localStorage.setItem(
       'userData',
-      JSON.stringify({ userId: uid, token: token, userImage: image })
+      JSON.stringify({ 
+        userId: uid, 
+        token: token,
+        role: role,
+        userImage: image })
     );
   }, []);
 
@@ -68,6 +78,7 @@ export default function App() {
     if (window.confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
       setToken(null);
       setUserId(null);
+      setRole(null);
       setUserImage(null);
       localStorage.removeItem('userData');
     }
@@ -81,6 +92,7 @@ export default function App() {
           token: token,
           userId: userId,
           userImage: userImage,
+          role: role,
           login: loginHandler,
           logout: logoutHandler  
         }}

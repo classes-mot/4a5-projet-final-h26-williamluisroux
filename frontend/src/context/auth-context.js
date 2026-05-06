@@ -5,6 +5,7 @@ export const AuthContext = createContext({
     userId: null,
     userImage: null,
     token: null,
+    role: null,
     login: () => { },
     logout: () => { },
 });

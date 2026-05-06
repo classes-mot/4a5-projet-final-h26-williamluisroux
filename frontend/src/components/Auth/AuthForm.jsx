@@ -28,7 +28,12 @@ export default function AuthForm({ isLoginMode, onClose }) {
         'POST',
         JSON.stringify(data)
       );
-      auth.login(responseData.userId, responseData.token, responseData.user?.profilePicture || responseData.profilePicture);
+      auth.login(
+        responseData.userId, 
+        responseData.token,
+        responseData.role,
+        responseData.user?.profilePicture || responseData.profilePicture
+      );
       onClose();
     } catch (err) {
       console.log(err);

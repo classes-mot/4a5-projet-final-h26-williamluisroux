@@ -12,7 +12,7 @@ const checkAuth = (req, res, next) => {
         const decodedToken = jwt.verify(token, 'cleSuperSecrete!');
         console.log('---avant----');
         console.log(req.userData);
-        req.userData = { userId: decodedToken.userId };
+        req.userData = { userId: decodedToken.userId, role: decodedToken.role };
         console.log('----apres---');
         console.log(req.userData);
         next();

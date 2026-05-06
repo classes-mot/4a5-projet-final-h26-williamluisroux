@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import './ForumCard.css';
 
-const ForumCard = ({ forum, isMine, onDelete }) => {
+const ForumCard = ({ forum, showDelete, onDelete }) => {
   const {t} = useTranslation();
   return (
     <Link to={`/forums/${forum.id}`} className="forum-card">
@@ -14,7 +14,7 @@ const ForumCard = ({ forum, isMine, onDelete }) => {
       <div className="card-footer">
         <span>{forum.messages?.length || 0} messages</span>
         
-        {isMine ? (
+        {showDelete ? (
           <button 
             className="delete-forum-btn" 
             onClick={(e) => onDelete(e, forum.id)}

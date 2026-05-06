@@ -1,7 +1,7 @@
 import ProfilePicture from '../UI/ProfilePicture';
 import './MessageItem.css';
 
-const MessageItem = ({ msg, isMyMessage, onDelete }) => {
+const MessageItem = ({ msg, canDelete, isMyMessage, onDelete }) => {
     const auteurImage = msg.auteurId?.profilePicture;
     const auteurName = msg.auteurId?.name || "Anonyme";
 
@@ -18,7 +18,7 @@ const MessageItem = ({ msg, isMyMessage, onDelete }) => {
                         {msg.dateEnvoi ? new Date(msg.dateEnvoi).toLocaleString() : ""}
                     </span>
                     
-                    {isMyMessage && (
+                    {canDelete && (
                         <button 
                             className="delete-msg-btn"
                             onClick={() => onDelete(msg._id || msg.id)}

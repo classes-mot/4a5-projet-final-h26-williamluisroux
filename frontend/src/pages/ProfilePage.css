@@ -20,7 +20,7 @@
   gap: 1rem;
 }
 
-.email-text {
+.basic-text {
   color: var(--text-primary);
   font-style: italic;
 }

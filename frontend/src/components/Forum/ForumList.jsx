@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import ForumCard from './ForumCard';
 import './ForumList.css';
 
-const ForumList = ({ items, sortCriterion, onDelete }) => {
+const ForumList = ({ items, sortCritere, onDelete, isAdmin }) => {
   const {t} = useTranslation();
   if (items.length === 0) {
     return (
@@ -18,7 +18,7 @@ const ForumList = ({ items, sortCriterion, onDelete }) => {
         <ForumCard 
           key={f.id} 
           forum={f} 
-          isMine={sortCriterion === 'mine'} 
+          showDelete={sortCritere === 'mine' || isAdmin} 
           onDelete={onDelete}
         />
       ))}

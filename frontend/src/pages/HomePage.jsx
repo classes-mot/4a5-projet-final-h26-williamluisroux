@@ -88,8 +88,9 @@ export default function HomePage() {
       ) : (
         <ForumList 
           items={displayedForums} 
-          sortCriterion={sortCritere} 
-          onDelete={deleteForumHandler} 
+          sortCritere={sortCritere} 
+          onDelete={deleteForumHandler}
+          isAdmin={auth.role === 'admin'}
         />
       )}
     </div>

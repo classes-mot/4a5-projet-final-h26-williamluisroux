@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import MessageItem from './MessageItem';
 
-const MessageList = ({ messages, currentUserId, onDelete, messagesEndRef }) => {
+const MessageList = ({ messages, currentUserId, currentUserRole, onDelete, messagesEndRef }) => {
     const {t} = useTranslation();
     return (
         <div className="messages-container">
@@ -9,6 +9,7 @@ const MessageList = ({ messages, currentUserId, onDelete, messagesEndRef }) => {
                 <MessageItem 
                     key={msg._id || msg.id || index}
                     msg={msg}
+                    canDelete={msg.auteurId?._id === currentUserId || currentUserRole === 'admin'}
                     isMyMessage={msg.auteurId?._id === currentUserId}
                     onDelete={onDelete}
                 />

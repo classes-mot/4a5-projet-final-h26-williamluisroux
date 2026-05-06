@@ -32,6 +32,7 @@
 
     "profile" : {
         "email" : "Adresse courriel",
+        "role" : "Rôle",
         "label-modifier-nom" : "Nom d'utilisateur",
         "bouton-modifier-nom" : "ENREGISTRER LE NOM",
         "label-modifier-photo" : "Lien de l'image de profil",

@@ -32,6 +32,7 @@
 
     "profile" : {
         "email" : "E-mail",
+        "role" : "Role",
         "label-modifier-nom":"Username",
         "bouton-modifier-nom":"UPDATE NAME",
         "label-modifier-photo":"Profile picture link",
