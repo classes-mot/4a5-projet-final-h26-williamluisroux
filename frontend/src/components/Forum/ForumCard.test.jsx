@@ -24,7 +24,7 @@ describe("Integration: ForumCard Actions", () => {
 
     render(
       <MemoryRouter>
-        <ForumCard forum={forum} isMine={true} onDelete={mockDelete} />
+        <ForumCard forum={forum} showDelete={true} onDelete={mockDelete} />
       </MemoryRouter>
     );
 
