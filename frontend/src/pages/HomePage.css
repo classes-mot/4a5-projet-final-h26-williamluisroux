@@ -23,9 +23,9 @@
 }
 
 select {
-  background: #000;
-  color: #d4af37;
-  border: 1px solid #d4af37;
+  background: var(--primary-card);
+  color: var(--secondary-main);
+  border: 1px solid var(--secondary-main);
   padding: 8px 15px;
   border-radius: 4px;
   font-family: inherit;
@@ -35,7 +35,7 @@ select {
 
 .create-forum-btn {
   background: var(--secondary-main);
-  color: white;
+  color: var(--primary-deep);
   text-decoration: none;
   padding: 0.8rem 1.5rem;
   font-weight: bold;
@@ -46,6 +46,7 @@ select {
 
 .create-forum-btn:hover {
   background: var(--primary-soft);
+  color: var(--secondary-main);
   box-shadow: 0 0 15px var(--secondary-main);
 }
 

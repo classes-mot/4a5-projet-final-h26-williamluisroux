@@ -27,7 +27,7 @@ const MainNavigation = (props) => {
         </button>
 
         <h1 className="main-navigation__title">
-          <Link to="/">GOLDENFORUMS</Link>
+          <Link to="/">FORUMCREATOR</Link>
         </h1>
 
         <nav className="main-navigation__header-nav">

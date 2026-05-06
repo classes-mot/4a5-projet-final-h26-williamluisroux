@@ -33,7 +33,7 @@
 .card-footer {
   margin-top: 1.5rem;
   padding-top: 1rem;
-  border-top: 1px solid #222;
+  border-top: 1px solid var(--secondary-main);
   display: flex;
   justify-content: space-between;
   align-items: center;

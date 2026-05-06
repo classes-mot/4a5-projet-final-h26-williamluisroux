@@ -4,7 +4,7 @@
   --primary-soft: #111111;
   --primary-card: #222222;
   
-  --secondary-main: #D4AF37;
+  --secondary-main: #d4af37;
   --secondary-dark: #b99333;
   --secondary-light: #d8a934;
   --secondary-shadow: rgba(212, 175, 55, 0.3);
@@ -16,9 +16,9 @@
 }
 
 .theme-gold {
-  --primary-deep: #c5a331;
-  --primary-soft: #d1a536;
-  --primary-card:  #e0b036;
+  --primary-deep: #bebebe;
+  --primary-soft: #d3d3d3;
+  --primary-card:  #dfdfdf;
   
   --secondary-main: #111111;
   --secondary-dark: #000000;

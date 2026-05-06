@@ -1,7 +1,7 @@
 {
     "navigation" : {
-        "theme-or":"GOLD",
-        "theme-noir":"BLACK",
+        "theme-or":"LIGHT",
+        "theme-noir":"DARK",
         "bouton-accueil":"HOME",
         "bouton-deconnexion":"LOGOUT",
         "bouton-login":"LOGIN",
