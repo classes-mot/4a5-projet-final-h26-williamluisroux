@@ -1,6 +1,8 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/users.js';
 import HttpError from '../util/http-error.js';
+import Message from '../models/messages.js';
+import Forum from '../models/forums.js';
 
 const registerUser = async (req, res, next) => {
     console.log('registering');
@@ -20,7 +22,7 @@ const registerUser = async (req, res, next) => {
     console.log('existingUser', existingUser);
     if (existingUser) {
         const error = new HttpError(
-            'Un utilisateur avec cette adresse err-mail existe déjà.',
+            'Un utilisateur avec cette adresse e-mail existe déjà.',
             422
         )
 
@@ -194,10 +196,70 @@ const updateUserPictureById = async (req, res, next) => {
     res.status(200).json({ user: user.toObject({ getters: true }) });
 };
 
+const deleteUserById = async (req, res, next) => {
+    const userId = req.params.uid;
+
+    if (req.userData.userId !== userId && req.userData.role !== 'admin') {
+        const error = new HttpError(
+            'Vous n\'avez pas l\'autorisation de supprimer ce compte.',
+            403
+        );
+
+        return next(error);
+    }
+
+    let user;
+    try {
+        user = await User.findById(userId);
+    } catch (err) {
+        const error = new HttpError(
+            'Erreur lors de la recherche de l\'utilisateur.',
+            500
+        );
+
+        return next(error);
+    }
+
+    if (!user) {
+        const error = new HttpError(
+            'Utilisateur non trouvé.',
+            404
+        );
+
+        return next(error);
+    }
+
+    try {
+        const userMessages = await Message.find({ auteurId: userId });
+        const messageIds = userMessages.map(msg => msg._id);
+
+        await Forum.updateMany(
+            { messages: { $in: messageIds } },
+            { $pullAll: { messages: messageIds } }
+        );
+
+        await Message.deleteMany({ auteurId: userId });
+
+        await Forum.deleteMany({ createurId: userId });
+
+        await user.deleteOne();
+    } catch (err) {
+        const error = new HttpError(
+            'Erreur lors de la suppression du compte et des données liées.',
+            500
+        );
+
+        return next(error);
+    }
+
+    res.status(200).json({ message: 'Compte et données associées supprimés.' });
+};
+
 export default {
     registerUser,
     login,
     getUserById,
     updateUserNameById,
-    updateUserPictureById
+    updateUserPictureById,
+    deleteUserById
 };

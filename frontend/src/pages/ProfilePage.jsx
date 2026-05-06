@@ -1,13 +1,15 @@
 import { useEffect, useState, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { AuthContext } from '../context/auth-context';
 import { useHttpClient } from '../hooks/http-hook';
 import ProfilePicture from '../components/UI/ProfilePicture';
+import EditCard from '../components/UI/EditCard';
 import './ProfilePage.css';
 import { useTranslation } from 'react-i18next';
 
 const ProfilePage = () => {
   const {t} = useTranslation();
+  const navigate = useNavigate();
   const auth = useContext(AuthContext);
   const { userId } = useParams();
   const { isLoading, sendRequest } = useHttpClient();
@@ -56,6 +58,7 @@ const ProfilePage = () => {
     }
   };
 
+  // Modification de l'IMAGE
   const imageSubmitHandler = async (event) => {
     event.preventDefault();
     try {
@@ -72,6 +75,32 @@ const ProfilePage = () => {
       alert("Photo de profil mise à jour !");
     } catch (err) {
         console.log(err);
+    }
+  };
+
+  const deleteAccountHandler = async () => {
+    const confirmDelete = window.confirm(t("profile.confirmation-suppression"));
+    
+    if (confirmDelete) {
+      try {
+        await sendRequest(
+          import.meta.env.VITE_BACKEND_URL + `users/profile/${userId}`,
+          'DELETE',
+          null,
+          {
+            Authorization: 'Bearer ' + auth.token
+          }
+        );
+        
+        if (auth.userId === userId) {
+          auth.logout();
+        }
+        
+        alert(t("profile.succes-suppression"));
+        navigate('/');
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
@@ -94,28 +123,34 @@ const ProfilePage = () => {
 
           {isOwnProfile && (
             <div className="edit-sections">
-              {/* Section nom */}
-              <form className="edit-card" onSubmit={nameSubmitHandler}>
-                <h3>{t("profile.label-modifier-nom")}</h3>
-                <input 
-                  type="text" 
-                  value={newName} 
-                  onChange={(e) => setNewName(e.target.value)} 
-                />
-                <button type="submit" className="theme-button">{t("profile.bouton-modifier-nom")}</button>
-              </form>
+              <EditCard 
+                title={t("profile.label-modifier-nom")}
+                value={newName}
+                onChange={(e) => setNewName(e.target.value)}
+                onSubmit={nameSubmitHandler}
+                buttonText={t("profile.bouton-modifier-nom")}
+              />
 
-              {/* Section image */}
-              <form className="edit-card" onSubmit={imageSubmitHandler}>
-                <h3>{t("profile.label-modifier-photo")}</h3>
-                <input 
-                  type="text" 
-                  placeholder={t("profile.placeholder-image")} 
-                  value={newImageUrl}
-                  onChange={(e) => setNewImageUrl(e.target.value)} 
-                />
-                <button type="submit" className="theme-button">{t("profile.bouton-modifier-photo")}</button>
-              </form>
+              <EditCard 
+                title={t("profile.label-modifier-photo")}
+                value={newImageUrl}
+                onChange={(e) => setNewImageUrl(e.target.value)}
+                onSubmit={imageSubmitHandler}
+                buttonText={t("profile.bouton-modifier-photo")}
+                placeholder={t("profile.placeholder-image")}
+              />
+
+              <div className="edit-card danger-zone">
+                <h3>{t("profile.zone-danger")}</h3>
+                <p className="basic-text">{t("profile.info-suppression")}</p>
+                <button 
+                  type="button" 
+                  className="theme-button delete-btn" 
+                  onClick={deleteAccountHandler}
+                >
+                  {t("profile.bouton-supprimer-compte")}
+                </button>
+              </div>
             </div>
           )}
         </div>

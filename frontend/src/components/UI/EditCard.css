@@ -1,0 +1,29 @@
+.edit-card {
+  background: var(--primary-card);
+  border: 1px solid var(--secondary-main);
+  padding: 2rem;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.edit-card h3 {
+  color: var(--secondary-main);
+  margin-top: 0;
+  text-align: left;
+}
+
+.edit-card input {
+  background: var(--primary-deep);
+  border: 1px solid #444;
+  color: var(--text-primary);
+  padding: 0.8rem;
+  border-radius: 4px;
+  outline: none;
+}
+
+.edit-card input:focus {
+  border-color: var(--secondary-main);
+}

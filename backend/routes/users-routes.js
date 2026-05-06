@@ -20,4 +20,6 @@ router.patch('/profile/:uid/name', checkOwner, check('name').not().isEmpty(), us
 
 router.patch('/profile/:uid/image', checkOwner, usersController.updateUserPictureById);
 
+router.delete('/profile/:uid', checkOwner, usersController.deleteUserById);
+
 export default router;

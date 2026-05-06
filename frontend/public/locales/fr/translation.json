@@ -38,7 +38,10 @@
         "label-modifier-photo" : "Lien de l'image de profil",
         "placeholder-image" : "Collez l'URL de l'image ici (ex: https://...)",
         "bouton-modifier-photo" : "METTRE À JOUR L'IMAGE",
-        "chargement" : "CHARGEMENT..."
+        "chargement" : "CHARGEMENT...",
+        "zone-danger" : "DANGER : NE PAS MISCLICK",
+        "info-suppression" : "La suppression de votre compte supprimera tout vos messages ainsi que les forums que vous avez créé.",
+        "bouton-supprimer-compte" : "SUPPRIMER LE COMPTE"
     },
 
     "message" : {

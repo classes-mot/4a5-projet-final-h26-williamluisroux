@@ -38,7 +38,10 @@
         "label-modifier-photo":"Profile picture link",
         "placeholder-image" : "Paste the image's URL here (e.g.: https://...)",
         "bouton-modifier-photo":"UPDATE PROFILE PICTURE",
-        "chargement" : "CHARGEMENT..."
+        "chargement" : "LOADING...",
+        "zone-danger" : "DANGER : DO NOT MISCLICK",
+        "info-suppression" : "The deletion of your account will delete all of your messages as well as all the forums you created.",
+        "bouton-supprimer-compte" : "DELETE ACCOUNT"
     },
 
     "message" : {
