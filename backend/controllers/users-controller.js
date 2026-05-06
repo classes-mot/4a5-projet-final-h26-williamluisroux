@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 import User from '../models/users.js';
 import HttpError from '../util/http-error.js';
 import Message from '../models/messages.js';
@@ -29,13 +30,21 @@ const registerUser = async (req, res, next) => {
         return next(error);
     }
 
+    let hashedPassword;
+    try {
+        hashedPassword = await bcrypt.hash(password, 12);
+    } catch (err) {
+        return next(new HttpError("Erreur lors de la sécurisation du mot de passe.", 500));
+    }
+
     const createdUser = new User({
         name,
         email,
-        password,
+        password: hashedPassword,
         profilePicture: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
         forums: forums || [],
-        messages: []
+        messages: [],
+        role: 'user'
     });
     console.log('createdUser', createdUser);
 
@@ -67,11 +76,32 @@ const login = async (req, res, next) => {
         return next(error);
     }
 
-    if (!existingUser || existingUser.password !== password) {
+    if (!existingUser) {
         const error = new HttpError(
             'Identification échouée, vérifiez vos identifiants.',
             401
         );
+        return next(error);
+    }
+
+    let isValidPassword = false;
+    try {
+        isValidPassword = await bcrypt.compare(password, existingUser.password);
+    } catch (err) {
+        const error = new HttpError(
+            'Erreur lors de la vérification des identifiants.',
+            500
+        );
+
+        return next(error);
+    }
+
+    if (!isValidPassword) {
+        const error = new HttpError(
+            'Identification échouée, vérifiez vos identifiants.',
+            401
+        );
+
         return next(error);
     }
 
