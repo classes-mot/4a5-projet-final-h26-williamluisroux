@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/auth-context';
 import { ThemeContext } from '../../context/theme-context.js';
 import { useTranslation } from 'react-i18next';
@@ -9,8 +9,14 @@ import LanguageSwitcher from '../LanguageSwitcher.jsx';
 const NavLinks = (props) => {
   const {t} = useTranslation();
   const auth = useContext(AuthContext);
-    const { theme, toggleTheme } = useContext(ThemeContext);
+  const { theme, toggleTheme } = useContext(ThemeContext);
+  const navigate = useNavigate();
   
+  const logoutHandler = () => {
+    auth.logout();
+    navigate('/'); 
+  };
+
   return (
     <ul className="nav-links">
       <li>
@@ -31,7 +37,7 @@ const NavLinks = (props) => {
       {auth.isLoggedIn && (
         <>
           <li>
-            <button className="btn-logout" onClick={auth.logout}>{t("navigation.bouton-deconnexion")}</button>
+            <button className="btn-logout" onClick={logoutHandler}>{t("navigation.bouton-deconnexion")}</button>
           </li>
         </>
       )}
